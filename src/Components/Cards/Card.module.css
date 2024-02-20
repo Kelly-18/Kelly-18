@@ -1,0 +1,15 @@
+
+
+.cards{
+    border: 1px solid rgb(100, 100, 212);
+    border-radius: 10px;
+}
+.img{
+    border-radius: 10px 10px 0 0;
+}
+
+.badge{
+    top: 10px;
+    right: 20px;
+    font-size: 15px;
+}
