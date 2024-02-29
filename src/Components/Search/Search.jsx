@@ -5,7 +5,7 @@ const Search = ({ setSearch, setpageNumber }) => {
   return (
 
     <form>
-      <div className="d-flex justify-content-center mb-5 gap-4">
+      <div className="d-flex flex-sm-row flex-column align-items-center justify-content-center mb-5 gap-4">
         <input onChange={(e)=>{
             setpageNumber(1);
             setSearch(e.target.value);

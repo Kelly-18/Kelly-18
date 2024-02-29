@@ -7,10 +7,35 @@ import Filter from "./Components/Filters/Filter";
 import Card from "./Components/Cards/Card";
 import Pagination from "./Components/Pagination/Pagination"
 import Search from './Components/Search/Search';
+import Navbar from './Components/Navbar/Navbar';
 
- 
+import{BrowserRouter as Router, Routes, Route} from 'react-router-dom'
+import Episodes from './Components/Pages/Episodes';
+import Location from './Components/Pages/Location';
+import CardDetails from './Components/Cards/CardDetails';
 
 function App(){
+  return( 
+    <Router>
+    <div className="App">
+    <Navbar/>
+    </div>
+    <Routes>
+      <Route path='/' element={<Home/>}/>
+      <Route path='/:id' element={<CardDetails/>}/>
+
+      <Route path='/episodes' element={<Episodes/>}/>
+      <Route path='/episodes/:id' element={<CardDetails/>}/>
+
+      <Route path='/location' element={<Location/>}/>
+      <Route path='/location/:id' element={<CardDetails/>}/>
+    </Routes>
+  </Router>
+  );
+  
+} 
+
+const Home = ()=>{
 
   let [pageNumber, setpageNumber] = useState(1);
 
@@ -19,9 +44,12 @@ function App(){
   let {info,results}= fetchedData;
 
   let [search, setSearch] = useState("");
+  let [status, setStatus] = useState("");
+  let [gender, setGender] = useState("");
+  let [species, setSpecies] = useState("");
 
   
-  let api = `https://rickandmortyapi.com/api/character/?page= ${pageNumber}&name= ${search}`;
+  let api = `https://rickandmortyapi.com/api/character/?page= ${pageNumber}&name= ${search}&status= ${status}&gender= ${gender}&species =${species}`;
 
 
   useEffect(()=>{
@@ -33,9 +61,9 @@ function App(){
   }, [api])
   return (
     <div className ="App">
-     
+  
 
-      <h2 className ="text-center ubuntu my-5">Rick and Morty <span className="text-primary">API</span> </h2>
+      
 
       <h1 className="text-center mb-4">Characters</h1>
 
@@ -44,11 +72,11 @@ function App(){
       <div className="container">
         <div className="row">
           
-            <Filter/>
+            <Filter setSpecies ={setSpecies}  setGender={setGender}  setStatus= {setStatus} setpageNumber={setpageNumber}/>
           
-          <div className="col-8">
+          <div className="col-lg-8 col-12">
             <div className="row">
-                <Card results = {results}/>
+                <Card page='/' results = {results}/>
             </div>
             
           </div>
@@ -57,7 +85,7 @@ function App(){
 
 
       </div>
-      <Pagination  pageNumber = {pageNumber} setpageNumber = {setpageNumber}/>
+      <Pagination info = {info}  pageNumber = {pageNumber} setpageNumber = {setpageNumber}/>
     </div>
   
   
